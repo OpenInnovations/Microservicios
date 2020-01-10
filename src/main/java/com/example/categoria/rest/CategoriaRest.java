@@ -26,7 +26,7 @@ public class CategoriaRest {
     }
 
     @GetMapping("/{id}")
-    public Categoria buscarUno(@PathVariable("id") Long id){
+    public Categoria obtenerCategoria(@PathVariable("id") Long id){
         return repo.findById(id).orElse(null);
     }
 
