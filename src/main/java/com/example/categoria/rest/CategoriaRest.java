@@ -25,6 +25,11 @@ public class CategoriaRest {
         }
     }
 
+    @GetMapping("/{id}")
+    public Categoria buscarUno(@PathVariable("id") Long id){
+        return repo.findById(id).orElse(null);
+    }
+
     @PostMapping
     public void registrarCategoria(@RequestBody Categoria c){
         try {

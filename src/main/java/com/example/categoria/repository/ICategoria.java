@@ -13,7 +13,7 @@ public interface ICategoria extends JpaRepository<Categoria, Long> {
 
     @Transactional
     @Modifying
-    @Query(value = "UPDATE CATEGORIA c SET c.ESTCAT = 'I' WHERE c.IDCAT =: idcategoria")
+    @Query("UPDATE CATEGORIA c set c.ESTCAT='I' WHERE c.IDCAT =:idcategoria")
     void eliminarCategoria(@Param(value = "idcategoria") Long idcategoria);
 
 }
