@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-ProductoServiceApplication<ProductoService>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "com.openinnovations.ProductoService.ProductoServiceApplication",
+            "projectName": "ProductoService",
+            "args": ""
+        }
+    ]
+}

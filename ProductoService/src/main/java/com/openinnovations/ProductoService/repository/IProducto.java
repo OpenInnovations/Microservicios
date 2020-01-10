@@ -14,7 +14,7 @@ public interface IProducto extends JpaRepository<Producto, Long> {
 
     @Transactional
     @Modifying
-    @Query(value = "UPDATE PRODUCTO p set p.ESTPROD='I' WHERE p.IDPROD = :idproducto")
+    @Query(value = "UPDATE Producto p set p.ESTPROD='I' WHERE p.IDPROD = :idproducto")
     void eliminarProducto(@Param(value = "idproducto") Long idproducto);
     
 }

@@ -1,8 +1,9 @@
 package com.openinnovations.ProductoService.rest;
 
 import java.util.List;
+import java.util.Optional;
 
-import com.openinnovations.ProductoService.model.Categoria;
+import com.openinnovations.ProductoService.clients.ICategoriaClient;
 import com.openinnovations.ProductoService.model.Producto;
 import com.openinnovations.ProductoService.repository.IProducto;
 
@@ -20,13 +21,16 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin({ "*" })
 @RestController
 @RequestMapping("/api/producto")
-public class ProductoRest{
+public class ProductoRest {
 
     @Autowired
     private IProducto repo;
 
+    @Autowired
+    private ICategoriaClient categoriaClient;
+
     @GetMapping
-    public List<Producto> listarProductos(){
+    public List<Producto> listarProductos() {
         try {
             return repo.findAll();
         } catch (Exception e) {
@@ -35,10 +39,27 @@ public class ProductoRest{
         }
     }
 
+    @GetMapping("/{id}")
+    public Producto obtenerProducto(@PathVariable("id") Long id) {
+        Optional<Producto> opcional = repo.findById(id);
+        
+        if (opcional.isPresent()) {
+
+            Producto producto = opcional.get();
+
+            producto.setCategoria(categoriaClient.obtenerCategoria(producto.getIDCAT()));
+
+            return producto;
+        } else {
+            return null;
+
+        }
+    }
 
     @PostMapping
-    public void registrarProducto(@RequestBody Producto p){
+    public void registrarProducto(@RequestBody Producto p) {
         try {
+            p.setearIdCategoria();
             repo.saveAndFlush(p);
         } catch (Exception e) {
             e.printStackTrace();
@@ -46,24 +67,22 @@ public class ProductoRest{
     }
 
     @PutMapping
-    public void actualizarProducto(@RequestBody Producto p){
+    public void actualizarProducto(@RequestBody Producto p) {
         try {
+            p.setearIdCategoria();
             repo.saveAndFlush(p);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    @DeleteMapping(value="/{id}")
-    public void eliminarProducto(@PathVariable("id") Long id){
+    @DeleteMapping(value = "/{id}")
+    public void eliminarProducto(@PathVariable("id") Long id) {
         try {
             repo.eliminarProducto(id);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
-
-
 
 }
