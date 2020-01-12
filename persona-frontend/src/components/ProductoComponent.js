@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
@@ -8,33 +8,59 @@ import Typography from '@material-ui/core/Typography';
 
 
 
+class ProductoComponent extends Component {
 
-function ProductoComponent(props) {
+    render() {
+        return (
+            <Card>
+                <CardActionArea>
 
-    return (
-        <Card>
-            <CardActionArea>
-
-                <CardContent>
-                    <Typography gutterBottom variant="h5" component="h2">
-                        {props.nombreProducto}
-                    </Typography>
-                    <Typography variant="body2" color="textSecondary" component="p">
-                        S/. {props.precioProducto}
-                    </Typography>
-                </CardContent>
-            </CardActionArea>
-            <CardActions>
-                <Button size="small" color="primary">
-                    Categoria
-                </Button>
-                <Button size="small" color="secondary">
-                    Eliminar
-                </Button>
-            </CardActions>
-        </Card>
-    );
+                    <CardContent>
+                        <Typography gutterBottom variant="h5" component="h2">
+                            {this.props.nombreProducto}
+                        </Typography>
+                        <Typography variant="body2" color="textSecondary" component="p">
+                            S/. {this.props.precioProducto}
+                        </Typography>
+                    </CardContent>
+                </CardActionArea>
+                <CardActions>
+                    <Button size="small" color="secondary">
+                        Eliminar
+                    </Button>
+                </CardActions>
+            </Card>
+        );
+    }
 }
 
+class ProductosComponent extends Component {
+    componentDidMount() {
+        this.listarProductos();
+    }
 
-export default ProductoComponent;
+    listarProductos = () => {
+        fetch('http://localhost:8082/api/producto')
+            .then(res => res.json())
+            .then((data) => {
+                this.setState({ listaProducto: data })
+            })
+            .catch(console.log);
+    }
+
+    state = {
+        listaProducto: []
+    }
+
+    render() {
+        return (
+
+            this.state.listaProducto.map((p) => (
+                <ProductoComponent nombreProducto={p.nomprod} precioProducto={p.preprod} />
+            ))
+
+        );
+    }
+}
+
+export default ProductosComponent;
