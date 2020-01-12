@@ -5,6 +5,7 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import ProductoService from '../services/ProductoService';
 
 
 
@@ -25,7 +26,7 @@ class ProductoComponent extends Component {
                     </CardContent>
                 </CardActionArea>
                 <CardActions>
-                    <Button size="small" color="secondary">
+                    <Button size="small" color="secondary" onClick={this.props.borrar}>
                         Eliminar
                     </Button>
                 </CardActions>
@@ -35,28 +36,35 @@ class ProductoComponent extends Component {
 }
 
 class ProductosComponent extends Component {
-    componentDidMount() {
-        this.listarProductos();
+
+    constructor() {
+        super();
+        this.state = {
+            listaProducto: [],
+
+        }
+        this.servicioProducto = new ProductoService();
     }
 
-    listarProductos = () => {
-        fetch('http://localhost:8082/api/producto')
-            .then(res => res.json())
-            .then((data) => {
-                this.setState({ listaProducto: data })
-            })
-            .catch(console.log);
+    async componentDidMount() {
+        const data = await this.servicioProducto.findAll();
+        this.setState({ listaProducto: data });
     }
 
-    state = {
-        listaProducto: []
-    }
+
+    eliminarProducto = producto => e => {
+        console.log('[DELETE] ' + producto.IDPROD);
+        this.servicioProducto.delete(producto.IDPROD);
+        this.setState({
+            listaProducto: this.state.listaProducto.filter(p => p !== producto),
+        });
+    };
+
 
     render() {
         return (
-
             this.state.listaProducto.map((p) => (
-                <ProductoComponent nombreProducto={p.nomprod} precioProducto={p.preprod} />
+                <ProductoComponent nombreProducto={p.NOMPROD} precioProducto={p.PREPROD} borrar={this.eliminarProducto(p)} />
             ))
 
         );
