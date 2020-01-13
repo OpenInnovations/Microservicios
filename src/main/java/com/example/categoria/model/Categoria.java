@@ -28,6 +28,6 @@ public class Categoria implements Serializable {
     private String NOMCAT;
 
     @Column(length = 1, nullable = false)
-    private String ESTCAT;
+    private String ESTCAT = "A";
 
 }
