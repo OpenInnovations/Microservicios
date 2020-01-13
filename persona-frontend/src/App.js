@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
+import ProductoForm from './components/Forms/ProductoForm';
 import ProductosComponent from './components/ProductoComponent';
-import CategoriaComponent from './components/CategoriaComponent';
 
 
 class App extends Component {
@@ -13,8 +13,8 @@ class App extends Component {
   render() {
     return (
       <div>
-        <CategoriaComponent />
-        <ProductosComponent />
+        <ProductoForm />
+        <ProductosComponent/>
       </div>
     );
   }

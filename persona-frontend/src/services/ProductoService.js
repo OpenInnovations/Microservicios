@@ -26,24 +26,23 @@ class ProductoService {
     }
 
 
-    findOne = (id) => {
-        axios.get(this.urlServicio + '/' + id)
-            .then(res => res.json())
-            .then((data) => {
-                this.producto = new ProductoModel(data);
+    findOne = async (id) => {
+        await axios.get(this.urlServicio + '/' + id)
+            .then((res) => {
+                this.producto = new ProductoModel(res.data);
             })
             .catch(console.log);
         return this.producto;
     }
 
     save = (producto) => {
-        axios.post(this.urlServicio, JSON.stringify(producto))
+        axios.post(this.urlServicio, producto)
             .then(console.log)
             .catch(console.log);
     }
 
     update = (producto) => {
-        axios.put(this.urlServicio, JSON.stringify(producto))
+        axios.put(this.urlServicio, producto)
             .then(console.log)
             .catch(console.log);
     }

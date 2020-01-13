@@ -1,21 +1,43 @@
 import React, { Component } from 'react';
+import ProductoService from '../../services/ProductoService';
+import { TextField } from '@material-ui/core';
+import CategoriaComponent from '../CategoriaComponent';
 
-class ProductoForm extends Component{
-
-    componentDidMount(){
-
-    }
+class ProductoForm extends Component {
 
 
-    state = {
-        datos : {
-            
+    constructor() {
+        super();
+        this.servicioProducto = new ProductoService();
+        this.state = {
+            producto: {
+
+            }
         }
     }
 
-    render(){
+    componentDidMount() {
+
+    }
+
+    enviarProducto = producto => e => {
+        this.setState({
+            producto: producto
+        });
+        console.log(this.state.producto);
+
+    }
+
+    guardar = (producto) => {
+
+    }
+
+    render() {
         return (
-            <div></div>
+            <form >
+                <CategoriaComponent />
+                <TextField id="standard-basic" label="Nombre"/>
+            </form>
         );
     }
 }

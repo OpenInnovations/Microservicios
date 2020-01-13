@@ -3,10 +3,11 @@ import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import ProductoService from '../services/ProductoService';
-
+import Button from '@material-ui/core/Button';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Dialog from '@material-ui/core/Dialog';
 
 
 class ProductoComponent extends Component {
@@ -14,14 +15,13 @@ class ProductoComponent extends Component {
     render() {
         return (
             <Card>
-                <CardActionArea>
-
+                <CardActionArea onClick={this.props.mostrar}>
                     <CardContent>
                         <Typography gutterBottom variant="h5" component="h2">
-                            {this.props.nombreProducto}
+                            {this.props.producto.NOMPROD}
                         </Typography>
                         <Typography variant="body2" color="textSecondary" component="p">
-                            S/. {this.props.precioProducto}
+                            S/. {this.props.producto.PREPROD}
                         </Typography>
                     </CardContent>
                 </CardActionArea>
@@ -41,10 +41,12 @@ class ProductosComponent extends Component {
         super();
         this.state = {
             listaProducto: [],
-
+            open: false
         }
         this.servicioProducto = new ProductoService();
     }
+
+
 
     async componentDidMount() {
         const data = await this.servicioProducto.findAll();
@@ -60,13 +62,42 @@ class ProductosComponent extends Component {
         });
     };
 
+    mostrarDetalle = producto => e => {
+        this.setState({
+            open: true
+        })
+        console.log(producto.IDPROD);
+    }
+    handleClose = () => this.setState({
+        open: false
+    })
 
     render() {
-        return (
-            this.state.listaProducto.map((p) => (
-                <ProductoComponent nombreProducto={p.NOMPROD} precioProducto={p.PREPROD} borrar={this.eliminarProducto(p)} />
-            ))
 
+        return (
+
+            <div>
+                <Dialog  
+                    open={this.state.open}
+                    onClose={this.handleClose}
+                >
+                    <DialogTitle id="simple-dialog-title">Modificar</DialogTitle>
+                    <Typography>Un formulario para modificar aqui xd</Typography>
+
+                </Dialog  >
+                {
+                    this.state.listaProducto.map((p) => (
+                        <div>
+                            <ProductoComponent
+                                producto={p}
+                                mostrar={this.mostrarDetalle(p)}
+                                borrar={this.eliminarProducto(p)}
+                            />
+
+                        </div>
+                    ))
+                }
+            </div>
         );
     }
 }
