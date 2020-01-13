@@ -15,9 +15,23 @@ export class CatListComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.reloadData();
+  }
+
+  reloadData() {
     this.catService.findAll().subscribe(data => {
       this.catg = data;
     });
+  }
+
+  delete(id: number) {
+    this.catService.delete(id)
+      .subscribe(
+        data => {
+          console.log(data);
+          this.reloadData();
+        },
+        error => console.log(error));
   }
 
 }

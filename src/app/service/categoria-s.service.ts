@@ -22,4 +22,7 @@ export class CategoriaSService {
     return this.http.post<Categoria>(this.catsUrl, cat);
   }
 
+  public delete(id: number): Observable<any> {
+    return this.http.delete(`${this.catsUrl}/${id}`);
+  }
 }

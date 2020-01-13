@@ -24,7 +24,7 @@ export class CatFormComponent {
   }
 
   gotoUserList() {
-    this.router.navigate(['/categorias']);
+    this.router.navigate(['/view']);
   }
 
 }

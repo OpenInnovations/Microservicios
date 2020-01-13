@@ -7,6 +7,12 @@ import { CatListComponent } from './cat-list/cat-list.component';
 import { CatFormComponent } from './cat-form/cat-form.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CategoriaSService } from './service/categoria-s.service';
+import { Routes, RouterModule } from '@angular/router';
+
+const routes: Routes = [
+  { path: 'view', component: CatListComponent },
+  { path: 'regst', component: CatFormComponent },
+];
 
 @NgModule({
   declarations: [
@@ -18,7 +24,8 @@ import { CategoriaSService } from './service/categoria-s.service';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    RouterModule.forRoot(routes),
   ],
   providers: [CategoriaSService],
   bootstrap: [AppComponent]
