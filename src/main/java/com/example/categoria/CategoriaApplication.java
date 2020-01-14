@@ -12,4 +12,6 @@ public class CategoriaApplication {
         SpringApplication.run(CategoriaApplication.class, args);
     }
 
+    
+
 }
