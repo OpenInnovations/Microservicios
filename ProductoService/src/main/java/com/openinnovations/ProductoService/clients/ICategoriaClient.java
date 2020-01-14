@@ -9,8 +9,9 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-@FeignClient(name = "categoriaService")
-@RibbonClient(name = "categoriaService")
+//Es el spring.application.name del servicio con el que me comunico :,v
+@FeignClient(name = "categoria")
+@RibbonClient(name = "categoria")
 public interface ICategoriaClient {
 
     @GetMapping("/api/categoria")
