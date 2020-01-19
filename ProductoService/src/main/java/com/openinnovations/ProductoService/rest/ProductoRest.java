@@ -8,6 +8,7 @@ import com.openinnovations.ProductoService.model.Producto;
 import com.openinnovations.ProductoService.repository.IProducto;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@CrossOrigin({ "*" })
+@CrossOrigin({"*"})
 @RestController
 @RequestMapping("/api/producto")
 public class ProductoRest {
@@ -26,6 +27,7 @@ public class ProductoRest {
     @Autowired
     private IProducto repo;
 
+    @Qualifier("categoriaFallback")
     @Autowired
     private ICategoriaClient categoriaClient;
 
@@ -42,7 +44,7 @@ public class ProductoRest {
     @GetMapping("/{id}")
     public Producto obtenerProducto(@PathVariable("id") Long id) {
         Optional<Producto> opcional = repo.findById(id);
-        
+
         if (opcional.isPresent()) {
 
             Producto producto = opcional.get();
