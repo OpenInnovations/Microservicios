@@ -27,7 +27,6 @@ public class ProductoRest {
     @Autowired
     private IProducto repo;
 
-    @Qualifier("categoriaFallback")
     @Autowired
     private ICategoriaClient categoriaClient;
 

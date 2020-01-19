@@ -10,13 +10,13 @@ import java.util.List;
 public class CategoriaFallback implements ICategoriaClient {
     @Override
     public List<Categoria> findAll() {
-        System.out.println("[ERROR] El otro microservicio cayó, hacer algo aquí para solucionarlo");
+        System.out.println("[ERROR] el otro microservicio no responde, hacer algo xdxd");
         return null;
     }
 
     @Override
     public Categoria obtenerCategoria(Long id) {
-        System.out.println("[ERROR] El otro microservicio cayó, hacer algo aquí para solucionarlo");
-        return new Categoria();
+        System.out.println("[ERROR] el otro microservicio no responde, hacer algo xdxd");
+        return null;
     }
 }
